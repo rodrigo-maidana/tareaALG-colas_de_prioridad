@@ -49,9 +49,22 @@ int main(int argc, char* argv[]) {
     while (pq_size(pq) > 0) { // Mientras haya elementos en la cola de prioridades
         int* charValue;
         pq_remove(pq, (void**)&charValue); // Extrae el elemento de menor prioridad (menor frecuencia)
-        printf("%c = %d\n", *charValue, frequencies[*charValue]); // Imprime el carácter y su frecuencia
+
+        switch (*charValue) {
+            case 10: // Salto de línea
+                printf("Salto de Linea = %d\n", frequencies[*charValue]);
+                break;
+            case 32: // Espacio
+                printf("Espacio = %d\n", frequencies[*charValue]);
+                break;
+            default: // Cualquier otro carácter
+                printf("%c = %d\n", *charValue, frequencies[*charValue]); // Imprime el carácter y su frecuencia
+                break;
+        }
+
         free(charValue); // Libera la memoria asignada para el valor del carácter
     }
+
 
     pq_destroy(pq); // Destruye la cola de prioridades y libera la memoria asociada
     return 0; // Termina el programa
