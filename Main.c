@@ -2,17 +2,17 @@
 #include <stdio.h>
 #include "pq.h" // Incluye el archivo de cabecera para la cola de prioridades
 
-#define TOTAL_CHARS 256 // Define el total de caracteres posibles en ASCII extendido
+#define SIZE 256 //Valores ASCII
 
 int main(int argc, char* argv[]) {
     // Verifica que el nombre del archivo se haya pasado como argumento
     if (argc != 2) {
         printf("Forma de uso:\n");
-        printf("\t%s nombre_de_archivo.txt\n", argv[0]); // Indica cómo usar el programa
-        return 1; // Sale del programa si no se cumple la condición
+        printf("\t%s nombre_de_archivo.txt\n", argv[0]);
+        return 1;
     }
 
-    int frequencies[TOTAL_CHARS] = {0}; // Inicializa un arreglo para contar las frecuencias de cada carácter
+    int frequencies[SIZE] = {0}; // Inicializa un arreglo para contar las frecuencias de cada carácter
     FILE* file = fopen(argv[1], "r"); // Abre el archivo de texto para lectura
     if (file == NULL) { // Verifica si hay un error al abrir el archivo
         printf("Error al abrir el archivo.\n");
@@ -20,20 +20,22 @@ int main(int argc, char* argv[]) {
     }
 
     char c; // Variable para almacenar los caracteres leídos del archivo
+
     // Lee el archivo caracter por caracter hasta el final del archivo (EOF)
     while ((c = fgetc(file)) != EOF) {
         frequencies[(unsigned char)c]++; // Incrementa la frecuencia del carácter leído
     }
-    fclose(file); // Cierra el archivo
+    fclose(file); // Cierra el archivo al llegar al final (EOF)
 
-    PQ* pq = pq_create(); // Crea una cola de prioridades
-    if (pq == NULL) { // Verifica si hubo un error al crear la cola de prioridades
+    PQ* pq = pq_create(); // Crea un PQ
+
+    if (pq == NULL) { // Verifica si hubo un error al crear el PQ
         printf("No se pudo crear la cola de prioridades.\n");
-        return 1; // Sale del programa si no se puede crear la cola de prioridades
+        return 1; // Sale del programa si no se puede crear.
     }
 
     // Recorre el arreglo de frecuencias
-    for (int i = 0; i < TOTAL_CHARS; i++) {
+    for (int i = 0; i < SIZE; i++) {
         if (frequencies[i] > 0) { // Si el carácter tiene al menos una ocurrencia
             int* charValue = malloc(sizeof(int)); // Reserva memoria para almacenar el valor del carácter
             *charValue = i; // Guarda el valor ASCII del carácter en la memoria asignada
