@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "pq.h" // Incluye el archivo de cabecera para la cola de prioridades
+#include "pq.h"
 
-#define SIZE 256 //Valores ASCII
+#define SIZE 256 //Valores ASCII (Todos los caracteres posibles a encontrar en el .txt)
 
 int main(int argc, char* argv[]) {
     // Verifica que el nombre del archivo se haya pasado como argumento
